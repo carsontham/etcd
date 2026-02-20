@@ -167,9 +167,6 @@ func (ts *tsafeSet) Contains(values ...string) (exists bool) {
 func (ts *tsafeSet) ContainsAll(values []string) bool {
 	ts.m.RLock()
 	defer ts.m.RUnlock()
-	return ts.us.ContainsAll()
-	ts.m.RLock()
-	defer ts.m.RUnlock()
 	return ts.us.ContainsAll(values)
 }
 
