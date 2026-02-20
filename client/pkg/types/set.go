@@ -165,11 +165,9 @@ func (ts *tsafeSet) Contains(values ...string) (exists bool) {
 // ContainsAll returns whether the set contains all given values
 // Deprecated: Use Contains instead.
 func (ts *tsafeSet) ContainsAll(values []string) bool {
-	for _, s := range values {
-		if !ts.Contains(s) {
-			return false
-		}
-	}
+	ts.m.RLock()
+	defer ts.m.RUnlock()
+	return ts.us.ContainsAll()
 	ts.m.RLock()
 	defer ts.m.RUnlock()
 	return ts.us.ContainsAll(values)
